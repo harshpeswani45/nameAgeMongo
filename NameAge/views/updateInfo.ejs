@@ -1,0 +1,36 @@
+<html>
+    <body>
+        <h1><%=message%></h1>
+        Previous Name : <input type="text" id="id"><br>
+        Updated Name : <input type="text" id="id2"><br>
+        <button onclick="updateInfo()">Update Info</button>
+        <script>
+            function updateInfo() {
+            let xhttp = new XMLHttpRequest();
+            let url = "/updateInfo/"+document.getElementById("id").value+"/"+document.getElementById("id2").value;
+            xhttp.open('PUT', url, true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 ){
+                if(this.status==200)
+                alert(`${this.responseText}`);
+            else
+              alert(`status : ${this.status} error: ${this.responseText}`);
+            }
+            };
+            xhttp.send();
+      };
+        </script>
+        <br><br><br>
+        <form action="/addInfo">
+            <input type="submit" value="Add Info">
+        </form>
+        <form action="/deleteInfo">
+            <input type="submit" value="Delete Info">
+        </form>
+        <form action="/">
+            <input type="submit" value="Home">
+        </form>
+        <br><br>
+    </body>
+</html>

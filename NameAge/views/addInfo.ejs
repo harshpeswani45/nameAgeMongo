@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <%=message%>
+        <form method="POST" action="/addInfo" enctype="multipart/form-data">
+            Name : <input type="text" name="Name"><br>
+            Age : <input type="text" name='Age'><br>
+            Image : <input type="file" name='img'><br>
+            <input type="submit" value="Add Info">
+        </form>
+        <br> <br> <br>
+        <form action="/deleteInfo">
+            <input type="submit" value="Delete Info">
+        </form>
+        <form action="/updateInfo">
+            <input type="submit" value="Update Info">
+        </form>
+        <form action="/">
+            <input type="submit" value="Home">
+        </form>
+        <br><br>
+    </body>
+</html>

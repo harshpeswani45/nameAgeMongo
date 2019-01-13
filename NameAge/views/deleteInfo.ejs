@@ -1,0 +1,38 @@
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <h1><%=message%></h1>
+        Name : <input type = 'text' id="id">
+        <button onclick="deleteInfo()">Delete Info</button>
+        <script>
+            function deleteInfo() {
+                let xhttp = new XMLHttpRequest();
+                let url = "/deleteInfo/"+document.getElementById("id").value;
+                xhttp.open('DELETE', url, true);
+                xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 ){
+                        if(this.status==200)
+                            alert(`deleted user : ${this.responseText}`);
+                        else
+                            alert(`status : ${this.status} error: ${this.responseText}`);
+                    }
+            };
+            xhttp.send();
+        };
+        </script>
+        <br><br><br>
+    <form action="/addInfo">
+        <input type="submit" value="Add Info">
+    </form>
+    <form action="/updateInfo">
+        <input type="submit" value="Update Info">
+    </form>
+    <form action="/">
+        <input type="submit" value="Home">
+    </form>
+    <br><br>
+    </body>
+</html>
