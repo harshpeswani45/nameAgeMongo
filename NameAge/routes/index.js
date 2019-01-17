@@ -1,5 +1,6 @@
+var fs = require('fs')
 var express = require('express');
-var usermodels = require('../models/usermodels')
+var usermodels = require('../controller/usermodels')
 var joi = require('joi')
 var router = express.Router();
 
@@ -32,8 +33,8 @@ router.post('/addInfo',function(req,res){
         img.name='dummy.png'
       }
       else
-        img.mv('./public/images/'+img.name)
-      usermodels.addInfo(Name,Age,img,function(result){
+        img.mv('./uploads/'+img.name)
+      usermodels.addInfo(req,Name,Age,img,function(result){
         if(result)
           res.render('addInfo',{message:"Succesful"})
         else
@@ -53,10 +54,14 @@ router.get('/deleteInfo',function(req,res){
 router.delete('/deleteInfo/:id',function(req,res){
   var Name = req.params.id
   usermodels.deleteInfo(Name,function(result){
-    if(result)
-    res.render('deleteInfo',{message:'Succesful'})
+    
+    if(result.n){
+        
+        res.send(Name)
+    }
+    
     else
-      res.render('deleteInfo',{message:'Name Not Found'})
+      res.send('Name Not Found')
 })
 })
 
@@ -68,10 +73,11 @@ router.put('/updateInfo/:prevname/:newname',function(req,res){
   var prevname = req.params.prevname
   var newname = req.params.newname
   usermodels.updateInfo(prevname,newname,function(result){
+    console.log(result)
     if(result)
-      res.render('updateInfo',{message:'Succesful'})
+      res.send(prevname)
     else
-      res.render('updateInfo',{message:"Error"})
+      res.send('Name Not Found')
   })
 
 })
