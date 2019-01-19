@@ -1,13 +1,20 @@
 var fs = require('fs')
 var express = require('express');
-var usermodels = require('../controller/usermodels')
+var usermodels = require('../controller/users/usermodels')
 var joi = require('joi')
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  usermodels.showInfo(function(result){
-    res.render('index',{result:result});  
+  res.render('index')
+});
+
+router.get('/showInfo', function(req, res, next) {
+  usermodels.showInfo(req,function(result){
+    if(result)
+      res.render('showInfo',{result:result});
+    else
+      res.redirect('/')  
   })
 });
 
@@ -82,4 +89,35 @@ router.put('/updateInfo/:prevname/:newname',function(req,res){
 
 })
 
+router.get('/signup',function(req,res){
+  res.render('signup')
+})
+
+router.post('/signup',function(req,res){
+  var username = req.body.username
+  var pass = req.body.pass
+  usermodels.saveData(username,pass,function(result){
+    if(result)
+      res.redirect('/login')
+    else
+      res.redirect('/signup')
+  })
+})
+
+router.get('/login',function(req,res){
+  res.render('login')
+})
+
+router.post('/login',function(req,res){
+  var username = req.body.username
+  var password = req.body.pass
+  usermodels.validateData(username,password,function(result){
+    if(result){
+      req.session.username = username
+      res.redirect('/showInfo')
+    }
+    else
+      res.redirect('/login')
+  })
+})
 module.exports = router;

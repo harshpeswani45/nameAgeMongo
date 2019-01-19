@@ -1,8 +1,8 @@
-var db = require('../models/conn')
+var db = require('../../models/conn')
 var fs = require('fs')
 
 module.exports = function deleteInfo(name,cb){
-    db.find({Name:name},function(err,result){
+    db.db1.find({Name:name},function(err,result){
       if(err)
         console.log(err)
       else{

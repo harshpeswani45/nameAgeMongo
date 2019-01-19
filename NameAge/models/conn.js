@@ -7,6 +7,15 @@ const userSchema = mongoose.Schema({
     Image: {type: String, required:true}
   });
 
+const loginUsersGoogle = mongoose.Schema({
+    Id:{type: String,required:true},
+    userName:{type: String,required:true}
+})
+
+const users= mongoose.Schema({
+    username : {type:String,required:true},
+    password : {type:String,required:true}
+})
 
 mongoose.connect('mongodb://localhost/Information',function(err){
     if(err)
@@ -15,7 +24,8 @@ mongoose.connect('mongodb://localhost/Information',function(err){
         console.log('connection successful')
 });
 
-var db = mongoose.model('contactInfo',userSchema)
+var db1 = mongoose.model('contactInfo',userSchema)
+var db2 = mongoose.model('loginGoogle',loginUsersGoogle)
+var db3 = mongoose.model('users',users)
 
-
-module.exports=db
+module.exports={db1:db1,db2:db2,db3:db3}

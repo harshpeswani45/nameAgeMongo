@@ -1,16 +1,10 @@
-<form action="/addInfo">
-    <input type="submit" value="Add Info">
-</form>
-<form action="/deleteInfo">
-    <input type="submit" value="Delete Info">
-</form>
-<form action="/updateInfo">
-    <input type="submit" value="Update Info">
-</form>
-<br><br>
-<h1>Informations -</h1><br>
-<%result.forEach(function(element){
-    %>
-Name : <%=element.Name%> Age:<%=element.Age%> <br> Img : <img src='uploads/<%=element.Image%>' alt="not found"> <br>
-<%})%>
+<html>
+    <body>
+        <h1>Login</h1>
+        <br>
+        <Button><a href="/auth/google">Google+</a></Button>
+        <Button><a href="/login">Login</a></Button>
+        <Button><a href="/signup">Signup</a> </Button>
 
+    </body>
+</html>.
