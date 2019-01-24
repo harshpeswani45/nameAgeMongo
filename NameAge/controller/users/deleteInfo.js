@@ -8,13 +8,13 @@ module.exports = function deleteInfo(name,cb){
       else{
        
         if(result.length!=0 && result[0].Image!='dummy.png'){
-            var path = 'D:/NameAge/public/images/'+result[0].Image
+            var path = 'D:/NameAge/uploads/'+result[0].Image
             fs.unlink(path,function(err){
             if(err){
                 console.log(err)
             }
             else{
-                db.deleteOne({Name:name},function(err,result){
+                db.db1.deleteOne({Name:name},function(err,result){
                 if(err)
                  console.log(err)
                 else
@@ -25,7 +25,7 @@ module.exports = function deleteInfo(name,cb){
             })
         }
         else{
-            db.deleteOne({Name:name},function(err,result){
+            db.db1.deleteOne({Name:name},function(err,result){
                 if(err)
                  console.log(err)
                 else

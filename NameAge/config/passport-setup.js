@@ -17,7 +17,7 @@ passport.use(new GoogleStrategy({
 }
 ,function(accessToken,refreshToken,profile,done){
 
-    authModel.saveData(profile,function(result){
+    authModel.saveData.saveData(profile,function(result){
         done(null,result)
     })
 

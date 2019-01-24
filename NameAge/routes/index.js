@@ -3,6 +3,18 @@ var express = require('express');
 var usermodels = require('../controller/users/usermodels')
 var joi = require('joi')
 var router = express.Router();
+var randomstring = require('randomstring')
+var authModel = require('../controller/auth/index')
+
+router.use(function(req,res,next){
+  
+  if(authModel.saveData.exportData() != undefined)
+  {
+    console.log(authModel.saveData.exportData())
+    req.session.usernames = authModel.saveData.exportData()
+  }  
+  next()
+})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -40,7 +52,11 @@ router.post('/addInfo',function(req,res){
         img.name='dummy.png'
       }
       else
+      {
+        var random=randomstring.generate()
+        img.name=random+img.name
         img.mv('./uploads/'+img.name)
+      }
       usermodels.addInfo(req,Name,Age,img,function(result){
         if(result)
           res.render('addInfo',{message:"Succesful"})
@@ -59,6 +75,7 @@ router.get('/deleteInfo',function(req,res){
   res.render('deleteInfo',{message:message})
 })
 router.delete('/deleteInfo/:id',function(req,res){
+  
   var Name = req.params.id
   usermodels.deleteInfo(Name,function(result){
     

@@ -1,7 +1,7 @@
 var mongoose=require('mongoose')
 
 const userSchema = mongoose.Schema({
-    
+    username : {type : String,required:true}, 
     Name: {type : String,required:true},
     Age: {type : Number,required: true},
     Image: {type: String, required:true}
